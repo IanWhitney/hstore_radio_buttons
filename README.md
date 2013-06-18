@@ -53,7 +53,9 @@ For every collection of radio button questions, you'll need to define their set 
       o Sheep
       o Pig
 
-In this example we have two sets of buttons, one for the Gender question and one for the Barn Animal question. Each set needs to be defined in a yaml file that lives in config/hstore_radio_button_sets.yml
+### Defining buttons in a YAML file
+
+In above example we have two sets of buttons, one for the Gender question and one for the Barn Animal question. Each set needs to be defined in a yaml file that lives in config/hstore_radio_button_sets.yml
 
     person:
       gender:
@@ -67,13 +69,29 @@ In this example we have two sets of buttons, one for the Gender question and one
 
 The above defines two sets of buttons that can be used by the person model. For a model to generate/save radio button data, the set must be defined for the model.
 
-Then set up your model so that it knows it has hstore_radio_buttons
+Then set up your model so that it knows it has hstore_radio_buttons.
 
     class Person < ActiveRecord::Base
       include HstoreRadioButtons
-      hstore_radio_buttons
+
+      hstore_radio_buttons_from_yaml
       ...
     end
+
+### Defining buttons with macros in the model itself
+
+Instead of using the yaml file, you can define your buttons macro-style
+within the model itself.
+
+    class Person < ActiveRecord::Base
+      include HstoreRadioButtons
+
+      hstore_radio_button {'gender' => ['male', 'female', 'other']}
+      hstore_radio_button {'favorite barn animal' => %w(cow sheep pig)}
+      ...
+    end
+
+### Displaying buttons in a form
 
 To display the radio button set on the form, you have two options:
 
