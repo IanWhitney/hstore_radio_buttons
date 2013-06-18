@@ -1,5 +1,13 @@
 require "hstore_radio_buttons/version"
 
 module HstoreRadioButtons
-  # Your code goes here...
+  module ClassMethods
+    def hstore_radio_buttons
+
+    end
+  end
+
+  def self.included(receiver)
+    receiver.extend      ClassMethods
+  end
 end
