@@ -1,6 +1,6 @@
-# HstoreRadioButtons
+# hstore_radio_buttons
 
-So, you need a bunch of radio buttons on a form. But there's no particular reason for you to save each question in its own database field. And, even better, you have access to the Hstore data type in postgres
+So, you need a bunch of radio buttons on a form. But there's no particular reason for you to save each question in its own database field. And, even better, you have access to the Hstore data type in postgres. hstore_radio_buttons is the library you are looking for. Define a set of radio buttons, display them in your form and then gather them all up and save the data in an hstore field.
 
 # Requirements
 
@@ -60,11 +60,28 @@ To display the radio button set on the form, you have several different options
 
 Or, you could render all radio sets defined for your model:
 
-  <%= form_for @person do |f|>
-    <%= f.hstore_radio_tags %>
-  <% end>
+    <%= form_for @person do |f|>
+      <%= f.hstore_radio_tags %>
+    <% end>
 
 Which would render both Gender and Favorite Barn Animal in the same order in which they appear in the yaml file.
+
+The exact html that gets rendered in the above example would be:
+
+    <form...>
+      <label for=''>Gender</label>
+      <input type='radio' name='' value='male'>Male</input>
+      <input type='radio' name='' value='female'>Female</input>
+      <input type='radio' name='' value='other'>Other</input>
+      ...
+    </form>
+
+And once processed and saved, the hstore would look like:
+
+    {'gender' => 'female', 'favorite barn animal' => 'sheep'}
+
+And, of course, this perisisted data is used to mark the correct radio
+buttons as 'selected' when the form is loaded later.
 
 TODO: It'd be nice to have default values for a set.
 TODO: Multi-model radio button sets.
