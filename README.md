@@ -70,6 +70,7 @@ The above defines two sets of buttons that can be used by the person model. For 
 Then set up your model so that it knows it has hstore_radio_buttons
 
     class Person < ActiveRecord::Base
+      include HstoreRadioButtons
       hstore_radio_buttons
       ...
     end
@@ -135,7 +136,7 @@ problem.<sup>*</sup>
 <sup>*</sup> Notice the 'should' part there. I am not a security expert
 and I welcome any pull requests that make this gem more secure.
 
-TODO: It'd be nice to have default values for a set.
+TODO: It'd be nice to have default values for a set.  
 TODO: Multi-model radio button sets.
 
 ## Contributing
