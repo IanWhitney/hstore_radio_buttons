@@ -6,7 +6,10 @@ module HstoreRadioButtons
 
   module ClassMethods
     def hstore_radio_buttons
-      self.has_one :hstore_radio_data
     end
+  end
+
+  included do
+    has_one :hstore_radio_data
   end
 end
