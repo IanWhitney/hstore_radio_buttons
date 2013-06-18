@@ -19,6 +19,12 @@ And then execute:
 
     $ bundle
 
+hstore_radio_buttons will save all of your hstores in a single table. To
+generate that table, do:
+
+    $ rails generate hstore_radio_buttons:migration
+    $ rake db:migrate
+
 Or install it yourself as:
 
     $ gem install hstore_radio_buttons
@@ -40,7 +46,6 @@ For every collection of radio button questions, you'll need to define their set 
 In this example we have two sets of buttons, one for the Gender question and one for the Barn Animal question. Each set needs to be defined in a yaml file that lives in config/hstore_radio_button_sets.yml
 
     person:
-      hstore: parameters
       gender:
         - male
         - female
@@ -51,10 +56,6 @@ In this example we have two sets of buttons, one for the Gender question and one
         - pig
 
 The above defines two sets of buttons that can be used by the person model. For a model to generate/save radio button data, the set must be defined for the model.
-
-It also defines the name of the hstore field where you want this data
-saved. In this example, the people table has an hstore field named
-parameters.
 
 To display the radio button set on the form, you have several different options
 
