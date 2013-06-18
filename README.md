@@ -19,15 +19,24 @@ And then execute:
 
     $ bundle
 
+Or install it yourself as:
+
+    $ gem install hstore_radio_buttons
+
 hstore_radio_buttons will save all of your hstores in a single table. To
 generate that table, do:
 
     $ rails generate hstore_radio_buttons:migration
     $ rake db:migrate
 
-Or install it yourself as:
+The migration does two things:
 
-    $ gem install hstore_radio_buttons
+1. Executes the command "CREATE EXTENSION IF NOT EXISTS hstore"
+2. Creates a polymorphic table hstore_radio_data, which is where all the
+   persisted data will be saved.
+
+If you don't need to set up the hstore extension, just remove that part
+of the migration before running it.
 
 ## Usage
 
@@ -57,7 +66,14 @@ In this example we have two sets of buttons, one for the Gender question and one
 
 The above defines two sets of buttons that can be used by the person model. For a model to generate/save radio button data, the set must be defined for the model.
 
-To display the radio button set on the form, you have several different options
+Then set up your model so that it knows it has hstore_radio_buttons
+
+    class Person < ActiveRecord::Base
+      hstore_radio_buttons
+      ...
+    end
+
+To display the radio button set on the form, you have two options:
 
     <%= form_for @person do |f|>
       <%= f.hstore_radio_tag('gender') %>
@@ -85,6 +101,8 @@ The exact html that gets rendered in the above example would be:
 And once processed and saved, the hstore would look like:
 
     {'gender' => 'female', 'favorite barn animal' => 'sheep'}
+
+Persisted hstore data is stored in the hstore_radio_data table.
 
 And, of course, this perisisted data is used to mark the correct radio
 buttons as 'selected' when the form is loaded later.
