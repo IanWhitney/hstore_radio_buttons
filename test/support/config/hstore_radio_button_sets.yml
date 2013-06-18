@@ -1,0 +1,9 @@
+person:
+  gender:
+    - male
+    - female
+    - other
+  'favorite barn animal':
+    - cow
+    - sheep
+    - pig
