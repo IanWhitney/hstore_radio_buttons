@@ -1,8 +1,8 @@
 class CreateHstoreRadioData < ActiveRecord::Migration
   def self.up
     create_table :hstore_radio_data do |t|
-      t.belongs_to :versioned, :polymorphic => true
-      t.text    :hstore_data
+      t.belongs_to :model, :polymorphic => true
+      t.hstore    :hstore_data
 
       t.timestamps
     end
