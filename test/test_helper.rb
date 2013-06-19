@@ -4,6 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'hstore_radio_buttons'
 
 require 'minitest/autorun'
+require 'mocha/setup'
 
 require 'active_record'
 require_relative 'support/models.rb'
