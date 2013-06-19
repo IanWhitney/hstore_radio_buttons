@@ -6,8 +6,12 @@ module HstoreRadioButtons
       if yaml_exists?(yaml_file_location)
         button_sets = YAML.load(config_file(yaml_file_location))[model.to_s.downcase].keys
         Config.new(button_sets).button_sets.each do |button_set|
-          model.send(:define_method, button_set.to_sym) {}
-          model.send(:define_method, "#{button_set}=".to_sym) {}
+          model.send(:define_method, button_set.to_sym) {
+            hstore_data_proxy[button_set]
+          }
+          model.send(:define_method, "#{button_set}=".to_sym) {|value|
+            hstore_data_proxy[button_set] = value
+          }
         end
       end
     end

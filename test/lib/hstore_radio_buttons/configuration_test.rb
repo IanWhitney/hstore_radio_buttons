@@ -18,17 +18,29 @@ describe HstoreRadioButtons::Configuration do
     end
 
     describe "has a yaml file to use" do
-      it 'adds getters and setters for the button sets defined in the config file' do
-        it = Person.new
+      before :each do
+        @it = Person.new
         HstoreRadioButtons::Configuration.from_yaml(Person, @test_yaml_file_location)
         config = YAML.load(File.open(@test_yaml_file_location))
-        button_sets = config["person"].keys
-        button_sets.each do |button_set|
-          it.must_respond_to button_set.to_sym
-          it.must_respond_to "#{button_set}=".to_sym
+        @button_sets = config["person"].keys
+      end
+
+      it 'adds getters and setters for the button sets defined in the config file' do
+        @button_sets.each do |button_set|
+          @it.must_respond_to button_set.to_sym
+          @it.must_respond_to "#{button_set}=".to_sym
         end
       end
+
+      #it "persists data sent to setters" do
+        #@button_sets.each do |button_set|
+          #random_value = rand(1000)
+          #@it.send("#{button_set}=".to_sym, random_value)
+          ##@it.save
+          ##@it.reload
+          ##@it.send(button_set.to_sym).must_equal random_value
+        #end
+      #end
     end
   end
-
 end
