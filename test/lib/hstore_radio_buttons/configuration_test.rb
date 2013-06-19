@@ -32,15 +32,13 @@ describe HstoreRadioButtons::Configuration do
         end
       end
 
-      #it "persists data sent to setters" do
-        #@button_sets.each do |button_set|
-          #random_value = rand(1000)
-          #@it.send("#{button_set}=".to_sym, random_value)
-          ##@it.save
-          ##@it.reload
-          ##@it.send(button_set.to_sym).must_equal random_value
-        #end
-      #end
+      it "persists data sent to setters" do
+        @button_sets.each do |button_set|
+          random_value = rand(1000)
+          @it.send("#{button_set}=".to_sym, random_value)
+          @it.send(button_set.to_sym).must_equal random_value
+        end
+      end
     end
   end
 end
