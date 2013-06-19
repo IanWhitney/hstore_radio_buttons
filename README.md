@@ -91,6 +91,35 @@ within the model itself.
       ...
     end
 
+### Getters, Setters, Security
+
+Adding the button sets gives you getters and setters for those sets:
+
+    >> p = Person.find(1)
+    >> p.gender 
+      => 'female'
+    >> p.favorite_barn_animal
+      => 'sheep'
+    >> p.favorite_barn_animal = 'pig'
+      => 'pig'
+
+Keep in mind that the returned data will always be strings. So boolean
+values aren't true and false, they are 'true' and 'false'. That's just
+how hstore works.
+
+And, for the sake of security, you can't set a value to
+something that's not in your button definition. So if someone changes their
+form submission values to include malicious data that should not be a
+problem.<sup>*</sup>
+
+
+    >> p = Person.find(1)
+    >> p.gender = 'something hackerish' 
+      => nil
+
+<sup>*</sup> Notice the 'should' part there. I am not a security expert
+and I welcome any pull requests that make this gem more secure.
+
 ### Displaying buttons in a form
 
 To display the radio button set on the form, you have two options:
@@ -118,44 +147,26 @@ The exact html that gets rendered in the above example would be:
       ...
     </form>
 
-And once processed and saved, the hstore would look like:
+### Persistence
 
-    {'gender' => 'female', 'favorite barn animal' => 'sheep'}
+The conversion of your data into an hstore is handled by
+[activerecord-postgres-store]
+(https://github.com/engageis/activerecord-postgres-hstore) so refer to
+their documentation.
 
-Persisted hstore data is stored in the hstore_radio_data table.
+Your data will be stored in the hstore_radio_data table. If you saved
+data for a Person with the id of 1, it will be saved as
+
+    model_id  model_type  hstore_data
+    1         Person      {'gender' => 'other'....}
+
+But it's easiest to just work with the getters and setters in the Person
+model than dealing directly with this table.
 
 And, of course, this perisisted data is used to mark the correct radio
 buttons as 'selected' when the form is loaded later.
 
-You can interact with all this data in the console as well:
-
-    >> p = Person.find(1)
-    >> p.gender 
-      => 'female'
-    >> p.favorite_barn_animal
-      => 'sheep'
-    >> p.favorite_barn_animal = 'pig'
-      => 'pig'
-
-Keep in mind that the returned data will always be strings. So boolean
-values aren't true and false, they are 'true' and 'false'. That's just
-how hstore works.
-
-And, for the sake of security, you can't set a value to
-something that's not in your button definition. So if someone changes their
-form submission values to include malicious data that should not be a
-problem.<sup>*</sup>
-
-
-    >> p = Person.find(1)
-    >> p.gender = 'something hackerish' 
-      => nil
-
-<sup>*</sup> Notice the 'should' part there. I am not a security expert
-and I welcome any pull requests that make this gem more secure.
-
 TODO: It'd be nice to have default values for a set.  
-TODO: Multi-model radio button sets.
 
 ## Contributing
 
