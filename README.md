@@ -142,7 +142,7 @@ values aren't true and false, they are 'true' and 'false'. That's just
 how hstore works.
 
 And, for the sake of security, you can't set a value to
-something that's not in your config file. So if someone changes their
+something that's not in your button definition. So if someone changes their
 form submission values to include malicious data that should not be a
 problem.<sup>*</sup>
 
