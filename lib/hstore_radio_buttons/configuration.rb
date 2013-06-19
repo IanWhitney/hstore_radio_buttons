@@ -4,12 +4,8 @@ module HstoreRadioButtons
 
     Config = Struct.new(:button_sets)
 
-    def initialize()
-
-    end
-
     def build_for_model(model)
-      Config.new(YAML.load(config_file)["person"].keys)
+      Config.new(YAML.load(config_file)[model.to_s.downcase].keys)
     end
 
     private
