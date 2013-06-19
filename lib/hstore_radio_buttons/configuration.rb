@@ -9,7 +9,7 @@ module HstoreRadioButtons
       self.model = model
 
       if yaml_exists?
-        button_definitions_from_yaml.each {|button_definition| HstoreRadioButtons::ButtonSet.new(button_definition,model)}
+        button_options_from_yaml.each {|button_options| HstoreRadioButtons::ButtonSet.new(button_options,model)}
       end
     end
 
@@ -23,8 +23,12 @@ module HstoreRadioButtons
       File.exists?(yaml_file_location)
     end
 
-    def button_definitions_from_yaml
-      YAML.load(config_file)[model.to_s.downcase].keys
+    def button_options_from_yaml
+      button_options = []
+      YAML.load(config_file)[model.to_s.downcase].each do |raw_button_options|
+        button_options << ButtonOptions.new(raw_button_options[0], raw_button_options[1])
+      end
+      button_options
     end
   end
 end

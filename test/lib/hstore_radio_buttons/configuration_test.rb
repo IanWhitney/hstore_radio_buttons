@@ -21,12 +21,14 @@ describe HstoreRadioButtons::Configuration do
       before :each do
         @it = Person.new
         config = YAML.load(File.open(@test_yaml_file_location))
-        @button_sets = config["person"].keys
+        @button_sets = config[@it.class.to_s.downcase]
+        @button_option_double = HstoreRadioButtons::ButtonOptions.new('test',[])
+        HstoreRadioButtons::ButtonOptions.stubs(:new).returns(@button_option_double)
       end
 
       it 'creates a button_set for each button set defined in the config file' do
         @button_sets.each do |button_set|
-          HstoreRadioButtons::ButtonSet.expects(:new).with(button_set,@it.class).returns(nil)
+          HstoreRadioButtons::ButtonSet.expects(:new).with(@button_option_double,@it.class).returns(nil)
         end
         HstoreRadioButtons::Configuration.from_yaml(Person, @test_yaml_file_location)
       end
