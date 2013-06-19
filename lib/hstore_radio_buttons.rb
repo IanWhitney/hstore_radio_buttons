@@ -20,7 +20,7 @@ module HstoreRadioButtons
   private :hstore_data_proxy
 
   included do
-    has_one :hstore_radio_data
+    has_one :hstore_radio_data, :class_name => 'HstoreRadioButtons::HstoreRadioData', :as => :model
     HstoreRadioButtons::Configuration.from_yaml(self)
   end
 end
