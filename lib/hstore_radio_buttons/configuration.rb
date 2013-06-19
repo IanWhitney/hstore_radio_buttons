@@ -1,17 +1,25 @@
 module HstoreRadioButtons
   class Configuration
-    YAML_FILE_LOCATION = './config/hstore_radio_button_sets.yml'
-
     Config = Struct.new(:button_sets)
 
-    def build_for_model(model)
-      Config.new(YAML.load(config_file)[model.to_s.downcase].keys)
+    def self.from_yaml(model, yaml_file_location = './config/hstore_radio_button_sets.yml')
+      if using_yaml?(yaml_file_location)
+        button_sets = YAML.load(config_file(yaml_file_location))[model.to_s.downcase].keys
+        Config.new(button_sets).button_sets.each do |button_set|
+          model.send(:define_method, button_set.to_sym) {}
+          model.send(:define_method, "#{button_set}=".to_sym) {}
+        end
+      end
     end
 
     private
 
-    def config_file
-      File.open(YAML_FILE_LOCATION)
+    def self.config_file(yaml_file_location)
+      File.open(yaml_file_location)
+    end
+
+    def self.using_yaml?(yaml_file_location)
+      File.exists?(yaml_file_location)
     end
   end
 end

@@ -12,10 +12,6 @@ module HstoreRadioButtons
 
   included do
     has_one :hstore_radio_data
-    configuration = HstoreRadioButtons::Configuration.new.build_for_model(self)
-    configuration.button_sets.each do |button_set|
-      define_method(button_set.to_sym) {}
-      define_method("#{button_set}=".to_sym) {}
-    end
+    HstoreRadioButtons::Configuration.from_yaml(self, './test/support/config/hstore_radio_button_sets.yml')
   end
 end
