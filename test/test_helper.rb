@@ -6,6 +6,7 @@ require 'hstore_radio_buttons'
 require 'minitest/autorun'
 require 'mocha/setup'
 
+require 'fileutils'
 require 'active_record'
 require_relative 'support/models.rb'
 require_relative 'support/schema.rb'
