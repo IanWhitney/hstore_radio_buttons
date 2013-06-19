@@ -15,7 +15,11 @@ module HstoreRadioButtons
   end
 
   def hstore_data_proxy
-    hstore_radio_data || build_hstore_radio_data
+    if self.hstore_radio_data.nil?
+      self.build_hstore_radio_data.hstore_data
+    else
+      self.hstore_radio_data.hstore_data
+    end
   end
   private :hstore_data_proxy
 
