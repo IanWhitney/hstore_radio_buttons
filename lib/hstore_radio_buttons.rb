@@ -1,4 +1,5 @@
 require "hstore_radio_buttons/version"
+require "hstore_radio_buttons/configuration"
 require 'active_support/concern'
 
 module HstoreRadioButtons
@@ -11,10 +12,8 @@ module HstoreRadioButtons
 
   included do
     has_one :hstore_radio_data
-    config_file = File.open('./test/support/config/hstore_radio_button_sets.yml')
-    config = YAML.load(config_file)
-    button_sets = config["person"].keys
-    button_sets.each do |button_set|
+    configuration = HstoreRadioButtons::Configuration.new.build_for_model(self)
+    configuration.button_sets.each do |button_set|
       define_method(button_set.to_sym) {}
       define_method("#{button_set}=".to_sym) {}
     end

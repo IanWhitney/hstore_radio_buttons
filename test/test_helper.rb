@@ -2,6 +2,8 @@ lib = File.expand_path('../../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 require 'hstore_radio_buttons'
+HstoreRadioButtons::Configuration::YAML_FILE_LOCATION = './test/support/config/hstore_radio_button_sets.yml'
+
 require 'minitest/autorun'
 
 require 'active_record'
