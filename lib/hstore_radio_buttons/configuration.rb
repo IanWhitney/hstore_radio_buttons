@@ -9,14 +9,7 @@ module HstoreRadioButtons
       self.model = model
 
       if yaml_exists?
-        button_definitions_from_yaml.each do |button_definition|
-          model.send(:define_method, button_definition.to_sym) {
-            hstore_data_proxy[button_definition]
-          }
-          model.send(:define_method, "#{button_definition}=".to_sym) {|value|
-            hstore_data_proxy[button_definition] = value
-          }
-        end
+        button_definitions_from_yaml.each {|button_definition| HstoreRadioButtons::ButtonSet.new(button_definition,model)}
       end
     end
 
