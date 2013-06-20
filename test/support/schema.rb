@@ -9,6 +9,10 @@ class CreateSchema < ActiveRecord::Migration
       t.timestamps
     end
 
+    create_table :reports, :force => true do |t|
+      t.timestamps
+    end
+
     create_table :hstore_radio_data, :force => true do |t|
       t.belongs_to :model, :polymorphic => true
       t.text    :hstore_data

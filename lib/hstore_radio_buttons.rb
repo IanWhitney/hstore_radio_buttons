@@ -15,6 +15,10 @@ module HstoreRadioButtons
     def hstore_radio_buttons
       HstoreRadioButtons::Configuration.from_yaml(self)
     end
+
+    def hstore_radio_button(button_hash)
+      HstoreRadioButtons::Configuration.from_hash(self, button_hash)
+    end
   end
 
   def hstore_data_proxy
