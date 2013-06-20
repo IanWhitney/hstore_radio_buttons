@@ -1,12 +1,13 @@
+---
 person:
   gender:
-    - male
-    - female
-    - other
+  - male
+  - female
+  - other
   'favorite barn animal':
-    - cow
-    - sheep
-    - pig
+  - cow
+  - sheep
+  - pig
 report:
   accepted:
     - true

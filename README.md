@@ -57,15 +57,16 @@ For every collection of radio button questions, you'll need to define their set 
 
 In above example we have two sets of buttons, one for the Gender question and one for the Barn Animal question. Each set needs to be defined in a yaml file that lives in config/hstore_radio_button_sets.yml
 
+    ---
     person:
       gender:
-        - male
-        - female
-        - other
+      - male
+      - female
+      - other
       'favorite barn animal':
-        - cow
-        - sheep
-        - pig
+      - cow
+      - sheep
+      - pig
 
 The above defines two sets of buttons that can be used by the person model. For a model to generate/save radio button data, the set must be defined for the model.
 

@@ -35,18 +35,14 @@ module HstoreRadioButtons
 
     def button_options_from_yaml
       button_options = []
-      YAML.load(config_file)[model.to_s.downcase].each do |raw_button_options|
-        button_options << button_options_from_raw(raw_button_options)
+      YAML.load(config_file)[model.to_s.downcase].each do |key, value|
+        button_options << button_options_from_raw(Hash[key,value])
       end
       button_options
     end
 
     def button_options_from_raw(raw_button_options)
-      if raw_button_options.respond_to?(:keys)
-        ButtonOptions.new(raw_button_options.keys.first, raw_button_options.values.first)
-      else
-        ButtonOptions.new(raw_button_options[0], raw_button_options[1])
-      end
+      ButtonOptions.new(raw_button_options.keys.first, raw_button_options.values.first)
     end
   end
 end
