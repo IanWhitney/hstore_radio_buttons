@@ -13,6 +13,7 @@ module HstoreRadioButtons
 
   module ClassMethods
     def hstore_radio_buttons
+      HstoreRadioButtons::Configuration.from_yaml(self)
     end
   end
 
@@ -27,6 +28,5 @@ module HstoreRadioButtons
 
   included do
     has_one :hstore_radio_data, :class_name => 'HstoreRadioButtons::HstoreRadioData', :as => :model
-    HstoreRadioButtons::Configuration.from_yaml(self)
   end
 end

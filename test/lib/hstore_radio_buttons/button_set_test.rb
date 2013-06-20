@@ -23,9 +23,24 @@ describe HstoreRadioButtons::ButtonSet do
       end
     end
 
+    it "adds a method that returns the button set's options" do
+      @button_definitions.each do |button_definition|
+        @it.must_respond_to "#{button_definition.name}_options".to_sym
+        @it.send("#{button_definition.name}_options".to_sym).must_equal button_definition.options
+      end
+    end
+
+    it "defines the setter so that a value not in the set's option is not passed to the hstore" do
+      bad_value = "hackery_nonsense"
+      @button_definitions.each do |button_definition|
+        @it.send("#{button_definition.name}=".to_sym, bad_value)
+        @it.send(button_definition.name.to_sym).must_be_nil
+      end
+    end
+
     it 'persists data sent to setters' do
       @button_definitions.each do |button_definition|
-        random_value = rand(1000)
+        random_value = button_definition.options.sample
         @it.send("#{button_definition.name}=".to_sym, random_value)
         @it.send(button_definition.name.to_sym).must_equal random_value
       end
