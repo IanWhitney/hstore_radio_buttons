@@ -83,12 +83,11 @@ Then set up your model so that it knows it has hstore_radio_buttons.
 Instead of using the yaml file, you can define your buttons macro-style
 within the model itself.
 
-    class Person < ActiveRecord::Base
+    class Report < ActiveRecord::Base
       include HstoreRadioButtons
 
-      hstore_radio_button {'gender' => ['male', 'female', 'other']}
-      hstore_radio_button {'favorite barn animal' => %w(cow sheep pig)}
-      ...
+      hstore_radio_button Hash['viewed' => ['true', 'false']]
+      hstore_radio_button Hash['written by' => %w(monkeys interns milton)]
     end
 
 ### Getters, Setters, Security
