@@ -115,7 +115,7 @@ problem.<sup>*</sup>
 
     >> p = Person.find(1)
     >> p.gender = 'something hackerish' 
-      => nil
+    >> p.gender = nil
 
 <sup>*</sup> Notice the 'should' part there. I am not a security expert
 and I welcome any pull requests that make this gem more secure.
@@ -131,30 +131,46 @@ Or whatever other validations you need.
 
 ### Displaying buttons in a form
 
-To display the radio button set on the form, you have two options:
+To display the radio button set on the form, you have three options:
+
+#### Use a helper to display a single radio button
 
     <%= form_for @person do |f|>
       <%= f.hstore_radio_tag('gender') %>
+      ...
       <%= f.hstore_radio_tag('favorite barn animal') %>
-    <% end>
+    <% end %>
 
-Or, you could render all radio sets defined for your model:
+#### Use a helper to display all the radio buttons
 
     <%= form_for @person do |f|>
       <%= f.hstore_radio_tags %>
-    <% end>
+    <% end %>
 
-Which would render both Gender and Favorite Barn Animal in the same order in which they appear in the yaml file.
+#### Use the Rails radio button helpers:
 
-The exact html that gets rendered in the above example would be:
+    <%= form_for @person do |f|>
+      <%= f.radio_button('gender', 'male') %>
+      <%= f.label('gender', "Male", :value => 'male') %>
+      ...etc...
+    <% end %>
 
-    <form...>
-      <label for=''>Gender</label>
-      <input type='radio' name='' value='male'>Male</input>
-      <input type='radio' name='' value='female'>Female</input>
-      <input type='radio' name='' value='other'>Other</input>
-      ...
-    </form>
+The above duplicates the values of your radio buttons, though. Now they
+are in the yaml file (or model), and in your view. No one likes
+duplications. You can also do:
+
+    <%= form_for @person do |f|>
+      <% @person.gender_options.each do |option| %>
+        <%= f.radio_button('gender', option) %>
+        <%= f.label('gender', option.titleize, :value => option) %>
+      <% end %>
+    <% end %>
+
+When using the `hstore_radio_tag` or `hstore_radio_tags` helpers, the
+html rendered will be:
+
+    <input type='radio' name='person_gender' value='male'>
+    <label for='person_gender' value='male'><br />
 
 ### Persistence
 
