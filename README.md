@@ -136,15 +136,15 @@ To display the radio button set on the form, you have three options:
 #### Use a helper to display a single radio button
 
     <%= form_for @person do |f|>
-      <%= f.hstore_radio_tag('gender') %>
+      <%= f.hstore_radio_button('gender') %>
       ...
-      <%= f.hstore_radio_tag('favorite barn animal') %>
+      <%= f.hstore_radio_button('favorite barn animal') %>
     <% end %>
 
 #### Use a helper to display all the radio buttons
 
     <%= form_for @person do |f|>
-      <%= f.hstore_radio_tags %>
+      <%= f.hstore_radio_buttons %>
     <% end %>
 
 #### Use the Rails radio button helpers:
@@ -166,7 +166,7 @@ duplications. You can also do:
       <% end %>
     <% end %>
 
-When using the `hstore_radio_tag` or `hstore_radio_tags` helpers, the
+When using the `hstore_radio_button` or `hstore_radio_buttons` helpers, the
 html rendered will be:
 
     <input type='radio' name='person_gender' value='male'>
@@ -192,6 +192,7 @@ And, of course, this perisisted data is used to mark the correct radio
 buttons as 'selected' when the form is loaded later.
 
 TODO: It'd be nice to have default values for a set.  
+TODO: Formtastic integration
 
 ## Contributing
 
