@@ -120,6 +120,15 @@ problem.<sup>*</sup>
 <sup>*</sup> Notice the 'should' part there. I am not a security expert
 and I welcome any pull requests that make this gem more secure.
 
+Validations from ActiveModel work as well. So you can do:
+
+    class Person < ActiveRecord::Base
+      ...
+      validates_presence_of :gender
+    end
+
+Or whatever other validations you need.
+
 ### Displaying buttons in a form
 
 To display the radio button set on the form, you have two options:

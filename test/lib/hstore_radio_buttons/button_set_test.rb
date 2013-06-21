@@ -45,5 +45,10 @@ describe HstoreRadioButtons::ButtonSet do
         @it.send(button_definition.name.to_sym).must_equal random_value
       end
     end
+
+    it 'allows the use of ActiveModel validation methods' do
+      @it.class.validates_presence_of(@button_definitions.sample.name)
+      @it.valid?.must_equal false
+    end
   end
 end
