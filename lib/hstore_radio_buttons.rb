@@ -15,8 +15,8 @@ module HstoreRadioButtons
   autoload :HstoreRadioData
 
   module ClassMethods
-    def hstore_radio_buttons
-      HstoreRadioButtons::Configuration.from_yaml(self)
+    def hstore_radio_buttons(yaml_file_location = './config/hstore_radio_button_sets.yml')
+      HstoreRadioButtons::Configuration.from_yaml(self,yaml_file_location)
     end
 
     def hstore_radio_button(button_hash)

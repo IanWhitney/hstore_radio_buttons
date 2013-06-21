@@ -55,7 +55,7 @@ For every collection of radio button questions, you'll need to define their set 
 
 ### Defining buttons in a YAML file
 
-In above example we have two sets of buttons, one for the Gender question and one for the Barn Animal question. Each set needs to be defined in a yaml file that lives in config/hstore_radio_button_sets.yml
+In above example we have two sets of buttons, one for the Gender question and one for the Barn Animal question. By default, this yaml file is stored in `config/hstore_radio_button_sets.yml`. But you can override that and put the file elsewhere, if you want.
 
     ---
     person:
@@ -75,7 +75,17 @@ Then set up your model so that it knows it has hstore_radio_buttons.
     class Person < ActiveRecord::Base
       include HstoreRadioButtons
 
-      hstore_radio_buttons_from_yaml
+      hstore_radio_buttons
+      ...
+    end
+
+Changing the location of the file is done by passing in the path of your
+configuration file:
+
+    class Person < ActiveRecord::Base
+      include HstoreRadioButtons
+
+      hstore_radio_buttons '.config/yamls/person_hstore_buttons.yml'
       ...
     end
 
