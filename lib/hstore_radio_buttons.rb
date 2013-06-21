@@ -1,9 +1,12 @@
+require 'action_view'
+require 'active_support/concern'
+require 'active_support/dependencies/autoload'
+
 require 'hstore_radio_buttons/version'
 require 'hstore_radio_buttons/configuration'
 require 'hstore_radio_buttons/button_options'
 require 'hstore_radio_buttons/button_set'
-require 'active_support/concern'
-require 'active_support/dependencies/autoload'
+require 'hstore_radio_buttons/helpers/form_helper'
 
 module HstoreRadioButtons
   extend ActiveSupport::Concern
