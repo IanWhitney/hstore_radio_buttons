@@ -20,6 +20,13 @@ module HstoreRadioButtons
       model.send(:define_method, options_method) {
         button_definition.options
       }
+
+      if !model.instance_variable_defined?(:@hstore_button_names)
+        model.instance_variable_set(:@hstore_button_names, Set.new)
+      end
+      all_buttons_on_model = model.send(:instance_variable_get, :@hstore_button_names)
+
+      model.send(:instance_variable_set, :@hstore_button_names, all_buttons_on_model << button_definition.name.to_sym)
     end
   end
 end
