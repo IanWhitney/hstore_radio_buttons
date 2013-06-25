@@ -11,9 +11,9 @@ end
 
 module HstoreRadioButtons::FormBuilder
   def hstore_radio_button(method, options = {})
-    options[:separator] = "<br />"
+    separator = options[:separator] || "<br />"
     radio_options = object.public_send("#{method}_options".to_sym)
-    button_set = "#{method.to_s.titleize}<br />"
+    button_set = "#{method.to_s.titleize}#{separator}"
     radio_options.each do |radio_option|
       button_set += @template.hstore_radio_button(@object_name, method, radio_option, objectify_options(options))
     end

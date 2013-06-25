@@ -26,6 +26,12 @@ class FormBuilderTest < ActionView::TestCase
     assert_match /^Gender/, it.hstore_radio_button(:gender)
   end
 
+  test "#hstore_radio_button accepts a separator, which will be used to separate the button-set header from the buttons" do
+    view.stubs(:hstore_radio_button).with(any_parameters).returns("")
+    it = ActionView::Helpers::FormBuilder.new(:person, @person_instance, view, {}, proc {})
+    assert_match /^Gender-/, it.hstore_radio_button(:gender, separator: "-")
+  end
+
   test "FormBuilder#hstore_radio_button gets a button from FormHelper for each value in the _options method" do
     expected = "Gender<br />"
     @person_instance.gender_options.each do |option|
