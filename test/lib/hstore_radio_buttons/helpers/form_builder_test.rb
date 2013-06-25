@@ -10,9 +10,7 @@ class FormBuilderTest < ActionView::TestCase
   end
 
   test "adds my FormHelper to Rails' FormHelper" do
-    assert ActionView::Helpers::FormHelper.include?(HstoreRadioButtons::FormHelper)
     assert ActionView::Helpers::FormBuilder.include?(HstoreRadioButtons::FormBuilder)
-    assert ActionView::Base.include?(HstoreRadioButtons::FormHelper)
   end
 
   test "FormBuilder instances can respond to hstore_radio_button" do
