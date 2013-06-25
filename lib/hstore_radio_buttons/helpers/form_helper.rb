@@ -2,9 +2,9 @@ require 'action_view'
 
 module HstoreRadioButtons::FormHelper
   def hstore_radio_button(object_name, method, tag_value, options = {})
+    separator = options.delete(:separator)
     label = label(object_name, tag_value, options)
     input = radio_button(object_name, method, tag_value, options)
-    separator = options[:separator]
     "#{input}#{label}#{separator}"
   end
 end
