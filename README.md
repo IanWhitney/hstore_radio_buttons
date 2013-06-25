@@ -143,6 +143,10 @@ Or whatever other validations you need.
 
 To display the radio button set on the form, you have three options:
 
+1. Use a helper to display a single radio button
+2. Use a helper to display all the radio buttons
+3. Use the Rails form helpers
+
 #### Use a helper to display a single radio button
 
     <%= form_for @person do |f|>
@@ -157,30 +161,43 @@ To display the radio button set on the form, you have three options:
       <%= f.hstore_radio_buttons %>
     <% end %>
 
-#### Use the Rails radio button helpers:
+#### Use the Rails form helpers:
 
     <%= form_for @person do |f|>
-      <%= f.radio_button('gender', 'male') %>
-      <%= f.label('gender', "Male", :value => 'male') %>
+      <%= f.label(:gender) %>
+      <%= f.radio_button(:gender, 'male') %>
+      <%= f.label(:gender, "Male", :value => 'male') %>
       ...etc...
     <% end %>
 
-The above duplicates the values of your radio buttons, though. Now they
-are in the yaml file (or model), and in your view. No one likes
-duplications. You can also do:
+If you want to avoid the duplication that the above introduces, you can
+use the _options method that is added to your model:
 
     <%= form_for @person do |f|>
+      <%= f.label(:gender) %>
       <% @person.gender_options.each do |option| %>
-        <%= f.radio_button('gender', option) %>
-        <%= f.label('gender', option.titleize, :value => option) %>
+        <%= f.radio_button(:gender, option) %>
+        <%= f.label(:gender, option.titleize, :value => option) %>
       <% end %>
     <% end %>
 
-When using the `hstore_radio_button` or `hstore_radio_buttons` helpers, the
-html rendered will be:
+### Controlling helper-created output
 
-    <input type='radio' name='person_gender' value='male'>
-    <label for='person_gender' value='male'><br />
+By default the `hstore_radio_button` or `hstore_radio_buttons` helpers
+will give you output like this:
+
+    <label for='person_gender'>Gender</label><br />
+    <input id='person_gender_male' name 'person[gender]' type='radio'
+value='male'>
+    <label for='person_gender_male'>Male</label><br />
+
+You can swap those `<br />` tags for a different separator by passing in
+your own:
+
+    <%= f.hstore_radio_button('gender', separator: " - " %>
+
+If you need more control, you should probably just use the Rails helpers
+approach.
 
 ### Persistence
 
