@@ -85,7 +85,7 @@ configuration file:
     class Person < ActiveRecord::Base
       include HstoreRadioButtons
 
-      hstore_radio_buttons '.config/yamls/person_hstore_buttons.yml'
+      hstore_radio_buttons './config/yamls/person_hstore_buttons.yml'
       ...
     end
 
