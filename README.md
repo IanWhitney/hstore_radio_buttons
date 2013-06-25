@@ -186,10 +186,12 @@ use the _options method that is added to your model:
 By default the `hstore_radio_button` or `hstore_radio_buttons` helpers
 will give you output like this:
 
-    <label for='person_gender'>Gender</label><br />
-    <input id='person_gender_male' name 'person[gender]' type='radio'
-value='male'>
-    <label for='person_gender_male'>Male</label><br />
+    <div>
+      <label for='person_gender'>Gender</label><br />
+      <input id='person_gender_male' name 'person[gender]' type='radio'
+      value='male'>
+      <label for='person_gender_male'>Male</label><br />
+    </div>
 
 You can swap those `<br />` tags for a different separator by passing in
 your own:
