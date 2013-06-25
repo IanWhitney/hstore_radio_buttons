@@ -49,4 +49,16 @@ class FormBuilderTest < ActionView::TestCase
 
     assert_equal expected, it.hstore_radio_button(:gender)
   end
+
+  test "#hstore_radio_buttons builds a button set for each button defined in the class" do
+    it = ActionView::Helpers::FormBuilder.new(:person, @person_instance, view, {}, proc {})
+
+    all_buttons = Person.instance_variable_get(:@hstore_button_names)
+    expected = ""
+    all_buttons.each do |b|
+      expected += it.hstore_radio_button(b)
+    end
+
+    assert_equal expected, it.hstore_radio_buttons
+  end
 end

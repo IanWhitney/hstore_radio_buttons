@@ -22,9 +22,13 @@ module HstoreRadioButtons::FormBuilder
     content_tag(:div, button_set.html_safe).html_safe
   end
 
-  #def hstore_radio_buttons(options = {})
-    #@template.hstore_radio_buttons(@object_name, method, objectify_options(options))
-  #end
+  def hstore_radio_buttons(options = {})
+    all_buttons = ""
+    object.class.instance_variable_get(:@hstore_button_names).each do |method|
+      all_buttons += hstore_radio_button(method, options)
+    end
+    all_buttons.html_safe
+  end
 end
 
 ActionView::Helpers::FormHelper.send(:include, HstoreRadioButtons::FormHelper)
