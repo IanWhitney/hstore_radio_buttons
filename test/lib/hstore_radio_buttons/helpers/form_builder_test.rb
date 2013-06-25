@@ -18,24 +18,32 @@ class FormBuilderTest < ActionView::TestCase
     assert it.respond_to?(:hstore_radio_button)
   end
 
+  test "FormBuilder#hstore_radio_button wraps the whole thing in a div" do
+    view.stubs(:hstore_radio_button).with(any_parameters).returns("")
+    it = ActionView::Helpers::FormBuilder.new(:person, @person_instance, view, {}, proc {})
+    assert_match /^<div>/, it.hstore_radio_button(:gender)
+    assert_match /<\/div>$/, it.hstore_radio_button(:gender)
+  end
+
   test "FormBuilder#hstore_radio_button returns a set of buttons that are prefaced with the button set's name" do
     view.stubs(:hstore_radio_button).with(any_parameters).returns("")
     it = ActionView::Helpers::FormBuilder.new(:person, @person_instance, view, {}, proc {})
-    assert_match /^Gender/, it.hstore_radio_button(:gender)
+    assert_match /^<div>Gender/, it.hstore_radio_button(:gender)
   end
 
   test "#hstore_radio_button accepts a separator, which will be used to separate the button-set header from the buttons" do
     view.stubs(:hstore_radio_button).with(any_parameters).returns("")
     it = ActionView::Helpers::FormBuilder.new(:person, @person_instance, view, {}, proc {})
-    assert_match /^Gender-/, it.hstore_radio_button(:gender, separator: "-")
+    assert_match /^<div>Gender-/, it.hstore_radio_button(:gender, separator: "-")
   end
 
   test "FormBuilder#hstore_radio_button gets a button from FormHelper for each value in the _options method" do
-    expected = "Gender<br />"
+    expected = "<div>Gender<br />"
     @person_instance.gender_options.each do |option|
-      view.stubs(:hstore_radio_button).with(:person, :gender, option, {:object => @person_instance}).returns(option)
+      view.stubs(:hstore_radio_button).with(:person, :gender, option, {:separator => "<br />", :object => @person_instance}).returns(option)
       expected += "#{option}"
     end
+    expected += "</div>"
 
     it = ActionView::Helpers::FormBuilder.new(:person, @person_instance, view, {}, proc {})
 
