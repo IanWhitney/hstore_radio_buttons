@@ -6,6 +6,7 @@ require 'hstore_radio_buttons/version'
 require 'hstore_radio_buttons/configuration'
 require 'hstore_radio_buttons/button_options'
 require 'hstore_radio_buttons/button_set'
+require 'hstore_radio_buttons/method_namer'
 require 'hstore_radio_buttons/helpers/form_helper'
 
 module HstoreRadioButtons

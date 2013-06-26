@@ -1,7 +1,7 @@
 module HstoreRadioButtons
   class ButtonSet
     def initialize(button_definition, model)
-      namer = MethodNamer.new(button_definition.name)
+      namer = HstoreRadioButtons::MethodNamer.new(button_definition.name)
 
       create_instance_methods(button_definition, model, namer)
       create_getters_on_class(model, namer)
@@ -45,26 +45,5 @@ module HstoreRadioButtons
 
       model.send(:instance_variable_set, :@hstore_button_getters, all_buttons_on_model << namer.getter)
     end
-  end
-
-  class MethodNamer
-    def initialize(button_name)
-      self.button_name = button_name
-    end
-
-    def setter
-      "#{button_name}=".to_sym
-    end
-
-    def getter
-      button_name.to_sym
-    end
-
-    def options
-      "#{button_name}_options".to_sym
-    end
-
-    private
-    attr_accessor :button_name
   end
 end
