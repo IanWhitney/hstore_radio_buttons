@@ -1,32 +1,52 @@
 module HstoreRadioButtons
   class ButtonSet
     def initialize(button_definition, model)
-      setter_method = "#{button_definition.name}=".to_sym
-      getter_method = button_definition.name.to_sym
-      options_method = "#{button_definition.name}_options".to_sym
+      namer = MethodNamer.new(button_definition,model)
 
-      model.send(:define_method, getter_method) {
+      model.send(:define_method, namer.getter) {
         hstore_data_proxy[button_definition.name]
       }
 
-      model.send(:define_method, setter_method) {|value|
-        if self.send(options_method).include?(value)
+      model.send(:define_method, namer.setter) {|value|
+        if self.send(namer.options).include?(value)
           hstore_data_proxy[button_definition.name] = value
         else
           hstore_data_proxy[button_definition.name] = nil
         end
       }
 
-      model.send(:define_method, options_method) {
+      model.send(:define_method, namer.options) {
         button_definition.options
       }
 
-      if !model.instance_variable_defined?(:@hstore_button_names)
-        model.instance_variable_set(:@hstore_button_names, Set.new)
+      if !model.instance_variable_defined?(:@hstore_button_getters)
+        model.instance_variable_set(:@hstore_button_getters, Set.new)
       end
-      all_buttons_on_model = model.send(:instance_variable_get, :@hstore_button_names)
+      all_buttons_on_model = model.send(:instance_variable_get, :@hstore_button_getters)
 
-      model.send(:instance_variable_set, :@hstore_button_names, all_buttons_on_model << button_definition.name.to_sym)
+      model.send(:instance_variable_set, :@hstore_button_getters, all_buttons_on_model << namer.getter)
     end
+  end
+
+  class MethodNamer
+    def initialize(button_definition,model)
+      self.button_definition = button_definition
+      self.model = model
+    end
+
+    def setter
+      "#{button_definition.name}=".to_sym
+    end
+
+    def getter
+      button_definition.name.to_sym
+    end
+
+    def options
+      "#{button_definition.name}_options".to_sym
+    end
+
+    private
+    attr_accessor :model, :button_definition
   end
 end

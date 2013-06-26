@@ -52,7 +52,7 @@ describe HstoreRadioButtons::ButtonSet do
     end
 
     it 'creates a class instance variable that returns the names of all hstore button names' do
-      @it.class.instance_variable_get(:@hstore_button_names).must_equal @button_definitions.map {|d| d.name.to_sym}.to_set
+      @it.class.instance_variable_get(:@hstore_button_getters).must_equal @button_definitions.map {|d| d.name.to_sym}.to_set
     end
   end
 end

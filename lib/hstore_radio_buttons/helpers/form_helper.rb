@@ -24,7 +24,7 @@ module HstoreRadioButtons::FormBuilder
 
   def hstore_radio_buttons(options = {})
     all_buttons = ""
-    object.class.instance_variable_get(:@hstore_button_names).each do |method|
+    object.class.instance_variable_get(:@hstore_button_getters).each do |method|
       all_buttons += hstore_radio_button(method, options)
     end
     all_buttons.html_safe

@@ -53,7 +53,7 @@ class FormBuilderTest < ActionView::TestCase
   test "#hstore_radio_buttons builds a button set for each button defined in the class" do
     it = ActionView::Helpers::FormBuilder.new(:person, @person_instance, view, {}, proc {})
 
-    all_buttons = Person.instance_variable_get(:@hstore_button_names)
+    all_buttons = Person.instance_variable_get(:@hstore_button_getters)
     expected = ""
     all_buttons.each do |b|
       expected += it.hstore_radio_button(b)
