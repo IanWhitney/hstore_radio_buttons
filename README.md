@@ -152,8 +152,16 @@ To display the radio button set on the form, you have three options:
     <%= form_for @person do |f|>
       <%= f.hstore_radio_button('gender') %>
       ...
-      <%= f.hstore_radio_button('favorite barn animal') %>
+      <%= f.hstore_radio_button(:favorite_barn_animal) %>
     <% end %>
+
+You can use the string or a symbolized form. These are synonymous:
+
+    <%= f.hstore_radio_button('gender') %>
+    <%= f.hstore_radio_button(:gender) %>
+    or
+    <%= f.hstore_radio_button('Favorite Barn Animal') %>
+    <%= f.hstore_radio_button(:favorite_barn_animal) %>
 
 #### Use a helper to display all the radio buttons
 
@@ -167,7 +175,10 @@ To display the radio button set on the form, you have three options:
       <%= f.label(:gender) %>
       <%= f.radio_button(:gender, 'male') %>
       <%= f.label(:gender, "Male", :value => 'male') %>
-      ...etc...
+      ...
+      <%= f.radio_button(:favorite_barn_animal, 'sheep') %>
+      <%= f.label(:favorite_barn_animal, "Sheep", :value => 'sheep') %>
+      ...
     <% end %>
 
 If you want to avoid the duplication that the above introduces, you can
@@ -180,6 +191,15 @@ use the _options method that is added to your model:
         <%= f.label(:gender, option.titleize, :value => option) %>
       <% end %>
     <% end %>
+
+##### Method names when using Rails helpers
+If you use the Rails helpers, you'll need to use the correct name for
+the attribute. Use the lowercase, underscored version of your button set
+name:
+
+    <%= f.radio_button(:favorite_barn_animal, 'sheep') %> #works!
+    <%= f.radio_button('favorite_barn_animal', 'cow') %> #works!
+    <%= f.radio_button('Favorite Barn Animal', 'pig') %> #fail
 
 ### Controlling helper-created output
 
