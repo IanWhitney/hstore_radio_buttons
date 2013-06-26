@@ -223,6 +223,13 @@ buttons as 'selected' when the form is loaded later.
 TODO: It'd be nice to have default values for a set.  
 TODO: Formtastic integration
 
+### Thanks, etc.
+
+Many code ideas were 'borrowed' from [Vestal
+Versions](https://github.com/laserlemon/vestal_versions/) and [LRD]
+(https://github.com/LRDesign). Testing and design ideas were also
+contributed by [Davin Lagerroos](https://github.com/davinlagerroos).
+
 ## Contributing
 
 1. Fork it
