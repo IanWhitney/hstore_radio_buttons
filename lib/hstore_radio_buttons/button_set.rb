@@ -1,7 +1,7 @@
 module HstoreRadioButtons
   class ButtonSet
     def initialize(button_definition, model)
-      namer = MethodNamer.new(button_definition,model)
+      namer = MethodNamer.new(button_definition)
 
       model.send(:define_method, namer.getter) {
         hstore_data_proxy[button_definition.name]
@@ -29,9 +29,8 @@ module HstoreRadioButtons
   end
 
   class MethodNamer
-    def initialize(button_definition,model)
+    def initialize(button_definition)
       self.button_definition = button_definition
-      self.model = model
     end
 
     def setter
@@ -47,6 +46,6 @@ module HstoreRadioButtons
     end
 
     private
-    attr_accessor :model, :button_definition
+    attr_accessor :button_definition
   end
 end
