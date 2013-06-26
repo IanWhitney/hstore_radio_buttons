@@ -1,7 +1,7 @@
 module HstoreRadioButtons
   class ButtonSet
     def initialize(button_definition, model)
-      namer = MethodNamer.new(button_definition)
+      namer = MethodNamer.new(button_definition.name)
 
       create_instance_methods(button_definition, model, namer)
       create_getters_on_class(model, namer)
@@ -48,23 +48,23 @@ module HstoreRadioButtons
   end
 
   class MethodNamer
-    def initialize(button_definition)
-      self.button_definition = button_definition
+    def initialize(button_name)
+      self.button_name = button_name
     end
 
     def setter
-      "#{button_definition.name}=".to_sym
+      "#{button_name}=".to_sym
     end
 
     def getter
-      button_definition.name.to_sym
+      button_name.to_sym
     end
 
     def options
-      "#{button_definition.name}_options".to_sym
+      "#{button_name}_options".to_sym
     end
 
     private
-    attr_accessor :button_definition
+    attr_accessor :button_name
   end
 end
