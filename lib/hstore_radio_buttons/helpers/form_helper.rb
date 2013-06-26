@@ -14,10 +14,11 @@ module HstoreRadioButtons::FormBuilder
 
   def hstore_radio_button(method, options = {})
     options[:separator] = (options[:separator] ? options[:separator] : "<br />")
-    radio_options = object.public_send("#{method}_options".to_sym)
     button_set = "#{method.to_s.titleize}#{options[:separator]}"
-    radio_options.each do |radio_option|
-      button_set += @template.hstore_radio_button(@object_name, method, radio_option, objectify_options(options))
+
+    method = HstoreRadioButtons::MethodNamer.new(method)
+    object.public_send(method.options).each do |radio_option|
+      button_set += @template.hstore_radio_button(@object_name, method.getter, radio_option, objectify_options(options))
     end
     content_tag(:div, button_set.html_safe).html_safe
   end

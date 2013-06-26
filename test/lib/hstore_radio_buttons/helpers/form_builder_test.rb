@@ -18,6 +18,12 @@ class FormBuilderTest < ActionView::TestCase
     assert it.respond_to?(:hstore_radio_button)
   end
 
+  test "#hstore_radio_button responds to both symbolized and string forms of button-set names" do
+    it = ActionView::Helpers::FormBuilder.new(:person, @person_instance, view, {}, proc {})
+    assert_equal it.hstore_radio_button(:gender), it.hstore_radio_button('gender')
+    assert_equal it.hstore_radio_button(:favorite_barn_animal), it.hstore_radio_button('Favorite Barn Animal')
+  end
+
   test "FormBuilder#hstore_radio_button wraps the whole thing in a div" do
     view.stubs(:hstore_radio_button).with(any_parameters).returns("")
     it = ActionView::Helpers::FormBuilder.new(:person, @person_instance, view, {}, proc {})
