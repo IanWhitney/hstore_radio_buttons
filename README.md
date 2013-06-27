@@ -284,6 +284,7 @@ contributed by [Davin Lagerroos](https://github.com/davinlagerroos).
 
 ### Versions
 
+- 0.0.3 - Added support to customize button-set labels with Rails Internationalization API
 - 0.0.2 - Fixes to inconsistency in how you call buttons by name.
 - 0.0.1 - Initial
 
