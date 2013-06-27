@@ -252,8 +252,8 @@ contributed by [Davin Lagerroos](https://github.com/davinlagerroos).
 
 ### Versions
 
-0.0.2 - Fixes to inconsistency in how you call buttons by name.
-0.0.1 - Initial
+- 0.0.2 - Fixes to inconsistency in how you call buttons by name.
+- 0.0.1 - Initial
 
 ## Contributing
 
