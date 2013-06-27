@@ -250,6 +250,11 @@ Versions](https://github.com/laserlemon/vestal_versions/) and [LRD]
 (https://github.com/LRDesign). Testing and design ideas were also
 contributed by [Davin Lagerroos](https://github.com/davinlagerroos).
 
+### Versions
+
+0.0.2 - Fixes to inconsistency in how you call buttons by name.
+0.0.1 - Initial
+
 ## Contributing
 
 1. Fork it
