@@ -16,7 +16,7 @@ module HstoreRadioButtons::FormBuilder
     options[:separator] = (options[:separator] ? options[:separator] : "<br />")
     methods = HstoreRadioButtons::MethodNamer.new(method)
 
-    button_set = "#{HstoreRadioButtons::Formatter.new(method).to_title}#{options[:separator]}"
+    button_set = "#{object.class.human_attribute_name(methods.getter)}#{options[:separator]}"
 
     object.public_send(methods.options).each do |radio_option|
       button_set += @template.hstore_radio_button(@object_name, methods.getter, radio_option, objectify_options(options))

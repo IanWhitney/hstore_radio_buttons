@@ -221,6 +221,38 @@ your own:
 If you need more control, you should probably just use the Rails helpers
 approach.
 
+#### Customizing the label for a button set.
+
+If you define a button set like this:
+
+    person:
+      gender:
+      - male
+      - female
+      - other
+
+And then do a render like:
+
+    <%= f.label(:gender) %>
+or
+    <%= f.hstore_radio_button(:gender) %>
+
+Then your button set will start with the label "Gender". But what if you
+want something else? Use the [Rails translations api](http://guides.rubyonrails.org/i18n.html#translations-for-active-record-models). So in your en.yml file, you could put:
+
+  en:
+    activerecord:
+      attributes:
+        person:
+          gender: "Please pick a gender"
+
+And your radio button set will render as:
+
+  Please pick a gender
+    o Male
+    o Female
+    o Other 
+
 ### Persistence
 
 The conversion of your data into an hstore is handled by

@@ -1,7 +1,7 @@
 module HstoreRadioButtons
   class MethodNamer
     def initialize(button_name)
-      self.button_name = HstoreRadioButtons::Formatter.new(button_name).to_method
+      self.button_name = button_name.to_s.gsub(/ /,"_").downcase
     end
 
     def setter

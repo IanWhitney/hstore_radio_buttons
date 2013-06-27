@@ -31,10 +31,11 @@ class FormBuilderTest < ActionView::TestCase
     assert_match /<\/div>$/, it.hstore_radio_button(:gender)
   end
 
-  test "FormBuilder#hstore_radio_button returns a set of buttons that are prefaced with the button set's name" do
+  test "FormBuilder#hstore_radio_button returns a set of buttons that are prefaced with the button set's human name" do
     view.stubs(:hstore_radio_button).with(any_parameters).returns("")
+    Person.stubs(:human_attribute_name).with(:gender).returns("Pick a gender?")
     it = ActionView::Helpers::FormBuilder.new(:person, @person_instance, view, {}, proc {})
-    assert_match /^<div>Gender/, it.hstore_radio_button(:gender)
+    assert_match /^<div>Pick a gender?/, it.hstore_radio_button(:gender)
   end
 
   test "#hstore_radio_button accepts a separator, which will be used to separate the button-set header from the buttons" do
