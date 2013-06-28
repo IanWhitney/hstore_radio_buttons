@@ -13,14 +13,14 @@ module HstoreRadioButtons
       self.model = model
 
       if yaml_exists?
-        button_defititions_from_yaml.each {|button_definition| HstoreRadioButtons::ButtonSet.new(button_definition,model)}
+        button_defititions_from_yaml.each {|button_definition| build_button_from_definition(button_definition, model)}
       end
     end
 
     def _from_hash(model, raw_button_options)
       self.model = model
       button_definition = create_button_definiton(raw_button_options)
-      HstoreRadioButtons::ButtonSet.new(button_definition,model)
+      build_button_from_definition(button_definition,model)
     end
 
   private
@@ -46,6 +46,10 @@ module HstoreRadioButtons
       b.name = raw_button_options.keys.first
       b.options = raw_button_options.values.first
       b
+    end
+
+    def build_button_from_definition(button_definition,model)
+      HstoreRadioButtons::ButtonSet.new(button_definition,model)
     end
   end
 end
