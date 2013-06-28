@@ -13,14 +13,14 @@ module HstoreRadioButtons
       self.model = model
 
       if yaml_exists?
-        button_options_from_yaml.each {|button_options| HstoreRadioButtons::ButtonSet.new(button_options,model)}
+        button_defititions_from_yaml.each {|button_definition| HstoreRadioButtons::ButtonSet.new(button_definition,model)}
       end
     end
 
     def _from_hash(model, raw_button_options)
       self.model = model
-      button_options = button_options_from_raw(raw_button_options)
-      HstoreRadioButtons::ButtonSet.new(button_options,model)
+      button_definition = create_button_definiton(raw_button_options)
+      HstoreRadioButtons::ButtonSet.new(button_definition,model)
     end
 
   private
@@ -33,16 +33,16 @@ module HstoreRadioButtons
       File.exists?(yaml_file_location)
     end
 
-    def button_options_from_yaml
-      button_options = []
+    def button_defititions_from_yaml
+      button_definitions = []
       YAML.load(config_file)[model.to_s.downcase].each do |key, value|
-        button_options << button_options_from_raw(Hash[key,value])
+        button_definitions << create_button_definiton(Hash[key,value])
       end
-      button_options
+      button_definitions
     end
 
-    def button_options_from_raw(raw_button_options)
-      ButtonOptions.new(raw_button_options.keys.first, raw_button_options.values.first)
+    def create_button_definiton(raw_button_options)
+      ButtonDefinition.new(raw_button_options.keys.first, raw_button_options.values.first)
     end
   end
 end

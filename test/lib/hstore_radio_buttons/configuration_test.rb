@@ -23,8 +23,8 @@ describe HstoreRadioButtons::Configuration do
         @it = Person.new
         config = YAML.load(File.open(@test_yaml_file_location))
         @button_sets = config[@it.class.to_s.downcase]
-        @button_option_double = HstoreRadioButtons::ButtonOptions.new('test',[])
-        HstoreRadioButtons::ButtonOptions.stubs(:new).returns(@button_option_double)
+        @button_option_double = HstoreRadioButtons::ButtonDefinition.new('test',[])
+        HstoreRadioButtons::ButtonDefinition.stubs(:new).returns(@button_option_double)
       end
 
       it 'creates a button_set for each button set defined in the config file' do
@@ -40,8 +40,8 @@ describe HstoreRadioButtons::Configuration do
     describe "accepts a model and a button-defining hash to create a button" do
       it "creates a button_set for each button defined by a hstore_radio_button macro" do
         class Report < ActiveRecord::Base; end
-        @button_option_double = HstoreRadioButtons::ButtonOptions.new('test',[])
-        HstoreRadioButtons::ButtonOptions.stubs(:new).returns(@button_option_double)
+        @button_option_double = HstoreRadioButtons::ButtonDefinition.new('test',[])
+        HstoreRadioButtons::ButtonDefinition.stubs(:new).returns(@button_option_double)
 
         HstoreRadioButtons::ButtonSet.expects(:new).with(@button_option_double,Report).twice.returns(nil)
 

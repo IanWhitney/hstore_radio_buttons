@@ -1,5 +1,5 @@
 module HstoreRadioButtons
-  class ButtonOptions
+  class ButtonDefinition
     attr_accessor :name, :options
     def initialize(name, options)
       self.name = name
