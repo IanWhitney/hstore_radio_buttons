@@ -42,7 +42,10 @@ module HstoreRadioButtons
     end
 
     def create_button_definiton(raw_button_options)
-      ButtonDefinition.new(raw_button_options.keys.first, raw_button_options.values.first)
+      b = ButtonDefinition.new
+      b.name = raw_button_options.keys.first
+      b.options = raw_button_options.values.first
+      b
     end
   end
 end

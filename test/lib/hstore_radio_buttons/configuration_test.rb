@@ -23,13 +23,13 @@ describe HstoreRadioButtons::Configuration do
         @it = Person.new
         config = YAML.load(File.open(@test_yaml_file_location))
         @button_sets = config[@it.class.to_s.downcase]
-        @button_option_double = HstoreRadioButtons::ButtonDefinition.new('test',[])
-        HstoreRadioButtons::ButtonDefinition.stubs(:new).returns(@button_option_double)
+        @button_definition = button_definition_double('test',[])
+        HstoreRadioButtons::ButtonDefinition.stubs(:new).returns(@button_definition)
       end
 
       it 'creates a button_set for each button set defined in the config file' do
         @button_sets.each do |button_set|
-          HstoreRadioButtons::ButtonSet.expects(:new).with(@button_option_double,@it.class).returns(nil)
+          HstoreRadioButtons::ButtonSet.expects(:new).with(@button_definition,@it.class).returns(nil)
         end
         HstoreRadioButtons::Configuration.from_yaml(Person, @test_yaml_file_location)
       end
@@ -40,10 +40,11 @@ describe HstoreRadioButtons::Configuration do
     describe "accepts a model and a button-defining hash to create a button" do
       it "creates a button_set for each button defined by a hstore_radio_button macro" do
         class Report < ActiveRecord::Base; end
-        @button_option_double = HstoreRadioButtons::ButtonDefinition.new('test',[])
-        HstoreRadioButtons::ButtonDefinition.stubs(:new).returns(@button_option_double)
 
-        HstoreRadioButtons::ButtonSet.expects(:new).with(@button_option_double,Report).twice.returns(nil)
+        button_definition = button_definition_double('test',[])
+        HstoreRadioButtons::ButtonDefinition.stubs(:new).returns(button_definition)
+
+        HstoreRadioButtons::ButtonSet.expects(:new).with(button_definition,Report).twice.returns(nil)
 
         class Report < ActiveRecord::Base
           include HstoreRadioButtons
@@ -54,4 +55,11 @@ describe HstoreRadioButtons::Configuration do
       end
     end
   end
+end
+
+def button_definition_double(name, options)
+  b = HstoreRadioButtons::ButtonDefinition.new
+  b.name = name
+  b.options = options
+  b
 end
