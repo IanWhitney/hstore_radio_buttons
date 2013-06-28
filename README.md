@@ -254,15 +254,20 @@ And your radio button set will render as:
       o Female
       o Other 
 
-### Persistence
+## Persistence and Associations
 
 The conversion of your data into an hstore is handled by
 [activerecord-postgres-store]
 (https://github.com/engageis/activerecord-postgres-hstore) so refer to
 their documentation.
 
-Your data will be stored in the hstore_radio_data table. If you saved
-data for a Person with the id of 1, it will be saved as
+Any model that includes HstoreRadioButtons will have a has_one
+associaton with `hstore_radio_data`. This relationship will have
+`:autosave => true` 
+
+As you might guess from that association, your data will be stored in 
+the hstore_radio_data table. If you saved data for a Person with the 
+id of 1, it will be saved as
 
     model_id  model_type  hstore_data
     1         Person      {'gender' => 'other'....}

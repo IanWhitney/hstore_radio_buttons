@@ -13,4 +13,8 @@ describe HstoreRadioButtons do
     Person.new.must_respond_to :hstore_radio_data
     Person.new.must_respond_to :build_hstore_radio_data
   end
+
+  it "sets autosave to true for the hstore_radio_data table" do
+    Person.reflect_on_association(:hstore_radio_data).options[:autosave].must_equal :true #yes, it is a symbol
+  end
 end

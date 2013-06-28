@@ -35,6 +35,6 @@ module HstoreRadioButtons
   private :hstore_data_proxy
 
   included do
-    has_one :hstore_radio_data, :class_name => 'HstoreRadioButtons::HstoreRadioData', :as => :model
+    has_one :hstore_radio_data, :class_name => 'HstoreRadioButtons::HstoreRadioData', :as => :model, :autosave => :true
   end
 end
