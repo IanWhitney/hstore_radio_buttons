@@ -1,7 +1,10 @@
 module HstoreRadioButtons
   class ButtonDefinition
-    attr_accessor :name
-    attr_reader   :options
+    attr_reader   :options, :name
+
+    def name=(x)
+      @name = x.to_s
+    end
 
     def options=(x)
       @options = *x
