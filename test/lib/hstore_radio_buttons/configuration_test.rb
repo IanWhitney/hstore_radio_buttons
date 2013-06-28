@@ -39,19 +39,11 @@ describe HstoreRadioButtons::Configuration do
   describe "#from_hash" do
     describe "accepts a model and a button-defining hash to create a button" do
       it "creates a button_set for each button defined by a hstore_radio_button macro" do
-        class Report < ActiveRecord::Base; end
+        button_definition = button_definition_double(:viewed, ['true','false'])
+        HstoreRadioButtons::ButtonDefinition.expects(:new).returns(button_definition)
+        HstoreRadioButtons::ButtonSet.expects(:new).with(button_definition,Report)
 
-        button_definition = button_definition_double('test',[])
-        HstoreRadioButtons::ButtonDefinition.stubs(:new).returns(button_definition)
-
-        HstoreRadioButtons::ButtonSet.expects(:new).with(button_definition,Report).twice.returns(nil)
-
-        class Report < ActiveRecord::Base
-          include HstoreRadioButtons
-
-          hstore_radio_button Hash['viewed' => ['true', 'false']]
-          hstore_radio_button Hash['written by' => %w(monkeys interns milton)]
-        end
+        HstoreRadioButtons::Configuration.from_hash(Report, Hash[viewed: ['true','false']])
       end
     end
   end
